@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        /* ====== Body Styling ====== */
+       body {
+            background:linear-gradient(135deg, #0d2b57, #092041);;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+/* ====== Signup Form Container ====== */
+        .form-container {
+            background: rgba(34, 34, 34, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            width: 300px;
+            text-align: center;
+            position: relative; 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+        }
+/* ====== Input Fields ====== */
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            background: #333;
+            color: white;
+        }
+/* ====== Signup Button ====== */
+        button {
+            background: linear-gradient(135deg, #0d2b57, #092041);
+            color: white;
+            padding: 10px;
+            border: none;
+           width: 60%;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px auto;}
+button:hover {
+            
+            background: #446eac;
+        }
+        /* ====== Link Styling ====== */
+ a {
+            color: #b4a1a1;
+            text-decoration: none;
+            font-size: 14px;
+        }
+ a:hover {
+            text-decoration: underline;
+        }
+/* Close Button */
+        .close-btn {
+            position: absolute;
+             top: 10px;      
+    left: 220px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8em;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+         .close-btn:hover {
+            color: #446eac ;
+            background: none; 
+        }
+         /* ====== Responsive Design ====== */
+    @media (max-width: 768px) {
+      .form-container {
+        width: 80%; 
+        padding: 25px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 20px;
+        margin: 0 10px;
+        width: 90%; 
+      }
+      h2 {
+        font-size: 20px;
+      }
+      button {
+        font-size: 14px;
+        padding: 10px;
+        width: 80%;
+      }
+      input {
+        font-size: 14px;
+        padding: 10px;
+      }
+      .close-btn {
+        font-size: 1.5em;
+      }
+    }
+        </style>
+</head>
+<body>
+<!-- ====== Signup Form ====== -->
+<div class="form-container">
+    <!-- Close Button -->
+    <button class="close-btn" id="closePage">&times;</button>
+    <h2>Sign Up</h2>
+    <!-- Signup Form -->
+    <form>
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Sign Up</button>
+    </form>
+    <!-- Login Redirect -->
+    <p><a href="login.html">Already have an account? Login</a></p>
+</div>
+<!-- ====== JavaScript (Close Button Functionality) ====== -->
+<script>
+    document.getElementById("closePage").addEventListener("click", () => {
+        window.location.href = "index.html"; // Redirect to homepage
+    });
+</script>
+</body>
+</html>

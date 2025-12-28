@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joker</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* Background animation */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #111, #2e2e2e);
+      color: white;
+      animation: bgAnimation 10s ease-in-out infinite alternate;
+    }
+    @keyframes bgAnimation {
+      0% { background: linear-gradient(135deg, #111, #2e2e2e); }
+      100% { background: linear-gradient(135deg, #2e2e2e, #3a3a3a); }
+    }
+
+    /* Card reveal */
+    .movie-card {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease;
+    }
+    .movie-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Image hover + float */
+    .movie-card img {
+      max-width: 280px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(200, 0, 0, 0.4);
+      animation: float 4s ease-in-out infinite;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .movie-card img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 35px rgba(200, 0, 0, 0.7);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* Close button */
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.7em;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .close-btn:hover {
+      color: #ff5c5c;
+      transform: rotate(90deg);
+    }
+
+    /* Hidden details + messages */
+    .details { display: none; opacity: 0; }
+    .details.show { display: block; animation: fadeIn 0.6s ease forwards; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .message { display: none; color: #ff9999; }
+    /* ================== Responsive Styles ================== */
+
+/* Tablets (≤ 1024px) */
+@media screen and (max-width: 1024px) {
+  .movie-card img {
+    max-width: 240px;
+  }
+  .movie-card h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Small Tablets (≤ 768px) */
+@media screen and (max-width: 768px) {
+  .movie-card {
+    padding: 20px;
+  }
+  .movie-card img {
+    max-width: 200px;
+  }
+  .movie-card h1 {
+    font-size: 1.7rem;
+  }
+  .btn {
+    font-size: 0.9rem;
+    padding: 8px 14px;
+  }
+  .details {
+    font-size: 0.95rem;
+  }
+  .close-btn {
+    font-size: 1.5em;
+    top: 10px;
+    right: 10px;
+  }
+  /* Stack action buttons vertically */
+  .d-flex.flex-wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+  .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+  /* Coming Soon card takes full width */
+  .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Mobile (≤ 480px) */
+@media screen and (max-width: 480px) {
+  .movie-card {
+    padding: 15px;
+  }
+  .movie-card img {
+    max-width: 160px;
+  }
+  .movie-card h1 {
+    font-size: 1.4rem;
+  }
+  .btn {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+  .details {
+    font-size: 0.85rem;
+    text-align: center;
+  }
+  .message {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <div class="row justify-content-center g-5">
+
+      <!-- 🎥 Joker Movie Card -->
+      <div class="col-md-8">
+        <div class="movie-card position-relative text-center p-4 rounded-4 shadow-lg bg-dark bg-opacity-50" id="moviePage">
+          <button class="close-btn" id="closePage">&times;</button>
+
+          <h1 class="mb-4">Joker</h1>
+          <img src="images/joker.jpeg" alt="Joker Movie Poster" class="img-fluid mb-3">
+
+          <div class="d-flex flex-wrap justify-content-center gap-2 my-3">
+            <button class="btn btn-danger" id="showBtn"><i class="fas fa-eye"></i> Show Details</button>
+            <button class="btn btn-danger" id="hideBtn" style="display:none;"><i class="fas fa-eye-slash"></i> Hide Details</button>
+            <button class="btn btn-danger" id="trailerBtn"><i class="fas fa-film"></i> Play Trailer</button>
+            <button class="btn btn-danger" id="favBtn"><i class="fas fa-star"></i> Add to Favorites</button>
+            <button class="btn btn-danger" id="quoteBtn"><i class="fas fa-quote-right"></i> Random Quote</button>
+          </div>
+
+          <p class="details text-light" id="movieDetails">
+            Arthur Fleck, a failed comedian, struggles with mental illness and societal rejection. 
+            His descent into madness transforms him into the criminal mastermind known as the Joker, 
+            sparking chaos and violence in Gotham City.
+          </p>
+
+          <p class="message mt-3" id="favMessage">✅ Added to Favorites!</p>
+          <p class="message mt-3" id="quoteMessage"></p>
+        </div>
+      </div>
+
+      <!-- 🔮 Coming Soon -->
+      <div class="col-md-6">
+        <div class="movie-card text-center p-4 rounded-4 shadow bg-dark bg-opacity-50">
+          <h2>Coming Soon</h2>
+          <p class="text-secondary">More DC stories will be added here...</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const showBtn = document.getElementById('showBtn');
+    const hideBtn = document.getElementById('hideBtn');
+    const details = document.getElementById('movieDetails');
+    const closePage = document.getElementById('closePage');
+    const trailerBtn = document.getElementById('trailerBtn');
+    const favBtn = document.getElementById('favBtn');
+    const favMessage = document.getElementById('favMessage');
+    const quoteBtn = document.getElementById('quoteBtn');
+    const quoteMessage = document.getElementById('quoteMessage');
+
+    const quotes = [
+      "Is it just me, or is it getting crazier out there?",
+      "I used to think my life was a tragedy, but now I realize it’s a comedy.",
+      "The worst part of having a mental illness is people expect you to behave as if you don’t.",
+      "I hope my death makes more sense than my life.",
+      "All I have are negative thoughts."
+    ];
+
+    // Show details
+    showBtn.addEventListener('click', () => {
+      details.classList.add('show');
+      showBtn.style.display = 'none';
+      hideBtn.style.display = 'inline-block';
+    });
+
+    // Hide details
+    hideBtn.addEventListener('click', () => {
+      details.classList.remove('show');
+      setTimeout(() => { details.style.display = 'none'; }, 400);
+      showBtn.style.display = 'inline-block';
+      hideBtn.style.display = 'none';
+    });
+
+    // Play trailer
+    trailerBtn.addEventListener('click', () => {
+      window.open("https://www.youtube.com/watch?v=zAGVQLHvwOY", "_blank");
+    });
+
+    // Add to favorites
+    favBtn.addEventListener('click', () => {
+      favMessage.style.display = 'block';
+      favMessage.textContent = "✅ Added to Favorites!";
+      setTimeout(() => { favMessage.style.display = 'none'; }, 2000);
+    });
+
+    // Random quote
+    quoteBtn.addEventListener('click', () => {
+      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      quoteMessage.style.display = 'block';
+      quoteMessage.textContent = "💬 " + randomQuote;
+    });
+
+    // Close button → redirect
+    closePage.addEventListener('click', () => {
+      window.location.href = "index.html";
+    });
+
+    // Scroll reveal
+    const containers = document.querySelectorAll('.movie-card');
+    const revealOnScroll = () => {
+      containers.forEach(container => {
+        const rect = container.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          container.classList.add('visible');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+  </script>
+</body>
+</html>

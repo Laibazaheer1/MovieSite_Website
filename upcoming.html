@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upcoming Movies</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* Upcoming Movies Grid */
+.upcoming-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+  margin: 30px auto;
+  max-width: 1200px;
+}
+/*.upcoming-grid .card {
+  flex: 1 1 250px;
+  max-width: 280px;
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease-out;
+}*/
+.upcoming-grid .card {
+  flex: 1 1 250px;
+  max-width: 280px;
+  display: flex;      /* ensure hidden cards don't break alignment */
+  flex-direction: column;
+}
+
+.upcoming-grid .card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Buttons */
+.info-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #446eac;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.info-btn:hover {
+  background: #5a82c7;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(68,110,172,0.4);
+}
+.trailer-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: rgb(76,100,239);
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.trailer-btn:hover {
+  background: #477ecf;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(40,167,69,0.4);
+}
+/* Filter Tabs */
+.filter-tabs {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin: 30px 40px;
+}
+.tab-btn {
+  padding: 10px 20px;
+  border: 2px solid #1e3a8a;
+  border-radius: 25px;
+  background: transparent;
+  color: #f7f7f9;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.tab-btn:hover {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: #fff;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0px 4px 12px rgba(59,130,246,0.4);
+}
+.tab-btn.active {
+  background: #1e3a8a;
+  color: #fff;
+  box-shadow: 0px 4px 14px rgba(30,58,138,0.6);
+}
+/* Back-to-Top */
+#backToTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  font-size: 22px;
+  background: #0d2b57;
+  color: #fff;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: transform 0.3s;
+}
+#backToTop:hover { transform: scale(1.1); }
+/* Short Footer */
+.short-footer {
+  background: #000;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.modal-content {
+  background: #111;
+  color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+}
+.modal-content h2 { margin-bottom: 10px; }
+.modal-content p { font-size: 15px; line-height: 1.5; }
+.close {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #fff;
+}
+/* ================= Responsive Styles ================= */
+
+/* Tablets (≤1024px) */
+@media (max-width: 1024px) {
+  .upcoming-grid {
+    justify-content: center; 
+  }
+  .filter-tabs {
+    justify-content: center; 
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px;
+  }
+  .tab-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  .modal-content {
+    max-width: 80%;
+  }
+}
+
+/* Small Tablets (≤768px) */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; 
+  }
+  .search-container {
+    flex: 1;
+    margin-left: 10px;
+  }
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+  .upcoming-grid {
+    gap: 15px;
+  }
+  .upcoming-grid .card {
+    flex: 1 1 45%; 
+    max-width: 100%;
+  }
+}
+
+/* Mobile (≤480px) */
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+  .hero-content p {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  .filter-tabs {
+    flex-direction: column;
+    align-items: center;
+    margin: 15px auto;
+  }
+  .tab-btn {
+    width: 90%;
+    font-size: 13px;
+  }
+  .upcoming-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .upcoming-grid .card {
+    flex: 1 1 100%; 
+    max-width: 90%;
+  }
+  .modal-content {
+    width: 90%;
+    font-size: 14px;
+  }
+  #backToTop {
+    bottom: 15px;
+    right: 15px;
+    padding: 10px;
+    font-size: 18px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar transparent">
+    <div class="logo">🎬 MovieSite</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="newreleases.html">New Releases</a></li>
+      <li><a href="toprated.html">Top Rated</a></li>
+      <li><a href="upcoming.html" class="active">Upcoming</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="search-container">
+      <form role="search" id="form">
+        <input type="search" id="query" name="q" placeholder="🔍 Search movies...">
+      </form>
+    </div>
+    <div class="profile-menu">
+      <i class="fa-solid fa-user user-icon"></i>
+      <div class="dropdown-menu">
+        <a href="login.html">Login</a>
+        <a href="signup.html">Signup</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero-banner" style="background-image:url('images/u0.jpeg')">
+    <div class="hero-content">
+      <h1>Upcoming Movies 2025</h1>
+      <p>Stay ahead with the most anticipated movies of the year!</p>
+    </div>
+  </header>
+
+  <!-- Filter Tabs -->
+  <div class="filter-tabs">
+    <button class="tab-btn active" data-category="all">All</button>
+    <button class="tab-btn" data-category="action">Action</button>
+    <button class="tab-btn" data-category="animation">Animation</button>
+    <button class="tab-btn" data-category="scifi">Sci-Fi</button>
+  </div>
+
+  <!-- Grid -->
+  <div class="row upcoming-grid">
+    <div class="column card" data-category="action">
+      <img src="images/u1.jpeg" alt="Deadpool & Wolverine">
+      <h3>Deadpool & Wolverine</h3>
+      <button class="info-btn" data-movie="deadpool">More Info</button>
+      <a href="https://www.youtube.com/watch?v=Z1BCujX3pw8" target="_blank" class="trailer-btn"><i class="fa-solid fa-film"></i> Play Trailer</a>
+    </div>
+    <div class="column card" data-category="scifi">
+      <img src="images/u2.jpeg" alt="Avatar 3">
+      <h3>Avatar 3</h3>
+      <button class="info-btn" data-movie="avatar">More Info</button>
+      <a href="https://www.youtube.com/results?search_query=Avatar+3+trailer" target="_blank" class="trailer-btn"><i class="fa-solid fa-film"></i> Play Trailer</a>
+    </div>
+    <div class="column card" data-category="animation">
+      <img src="images/u3.jpeg" alt="Inside Out 2">
+      <h3>Inside Out 2</h3>
+      <button class="info-btn" data-movie="insideout">More Info</button>
+      <a href="https://www.youtube.com/watch?v=LEjhY15eCx0" target="_blank" class="trailer-btn"><i class="fa-solid fa-film"></i> Play Trailer</a>
+    </div>
+    <div class="column card" data-category="action">
+      <img src="images/u4.jpeg" alt="Joker 2">
+      <h3>Joker 2</h3>
+      <button class="info-btn" data-movie="joker2">More Info</button>
+      <a href="https://www.youtube.com/watch?v=xy8aJw1vYHo" target="_blank" class="trailer-btn"><i class="fa-solid fa-film"></i> Play Trailer</a>
+    </div>
+    <div class="column card" data-category="scifi">
+      <img src="images/u5.jpeg" alt="Star Wars 2025">
+      <h3>Star Wars 2025</h3>
+      <button class="info-btn" data-movie="starwars">More Info</button>
+      <a href="https://www.youtube.com/results?search_query=Star+Wars+2025+trailer" target="_blank" class="trailer-btn"><i class="fa-solid fa-film"></i> Play Trailer</a>
+    </div>
+    <div class="column card" data-category="animation">
+      <img src="images/u6.jpeg" alt="Frozen 3">
+      <h3>Frozen 3</h3>
+      <button class="info-btn" data-movie="frozen3">More Info</button>
+      <a href="https://www.youtube.com/results?search_query=Frozen+3+trailer" target="_blank" class="trailer-btn"><i class="fa-solid fa-film"></i> Play Trailer</a>
+    </div>
+    <div class="column card" data-category="action">
+      <img src="images/u7.jpeg" alt="Avengers: Secret Wars">
+      <h3>Avengers: Secret Wars</h3>
+      <button class="info-btn" data-movie="avengers">More Info</button>
+      <a href="https://www.youtube.com/results?search_query=Avengers+Secret+Wars+trailer" target="_blank" class="trailer-btn"><i class="fa-solid fa-film"></i> Play Trailer</a>
+    </div>
+    <div class="column card" data-category="scifi">
+      <img src="images/u8.jpeg" alt="Dune Part 3">
+      <h3>Dune Part 3</h3>
+      <button class="info-btn" data-movie="dune3">More Info</button>
+      <a href="https://www.youtube.com/results?search_query=Dune+Part+3+trailer" target="_blank" class="trailer-btn"><i class="fa-solid fa-film"></i> Play Trailer</a>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="movieModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDescription"></p>
+    </div>
+  </div>
+
+  <!-- Back to Top -->
+  <button id="backToTop"><i class="fa-solid fa-arrow-up"></i></button>
+
+  <!-- Footer -->
+  <footer class="short-footer">
+    <p>© 2025 Movie Site | Designed by Laiba</p>
+  </footer>
+
+  <script>
+/* Search */
+(function upcomingSearch(){
+  const input = document.getElementById('query');
+  const grid  = document.querySelector('.upcoming-grid');
+  if(!input || !grid) return;
+  const cards = Array.from(grid.querySelectorAll('.card'));
+  input.addEventListener('input', () => {
+    const term = input.value.trim().toLowerCase();
+    if (term === '') {
+      cards.forEach(c => c.style.display = 'block');
+      const activeTab = document.querySelector('.tab-btn.active');
+      if (activeTab) activeTab.click();
+      return;
+    }
+    let found = false;
+    cards.forEach(c => {
+      const title = (c.querySelector('h3')?.textContent || '').toLowerCase();
+      if (title.includes(term)) { c.style.display = 'block'; found = true; }
+      else { c.style.display = 'none'; }
+    });
+    if (!found) grid.innerHTML = `<p class="no-results">No movies found!</p>`;
+  });
+})();
+/* Filter */
+const tabs = document.querySelectorAll(".tab-btn");
+const cards = document.querySelectorAll(".card");
+tabs.forEach(tab => {
+  tab.addEventListener("click", () => {
+    tabs.forEach(t => t.classList.remove("active"));
+    tab.classList.add("active");
+    const category = tab.getAttribute("data-category");
+    cards.forEach(card => {
+      card.style.display = (category === "all" || card.dataset.category === category) ? "block" : "none";
+    });
+  });
+});
+/* Reveal */
+function revealOnScroll(){
+  const trigger = window.innerHeight * 0.85;
+  cards.forEach(card => {
+    const top = card.getBoundingClientRect().top;
+    if(top < trigger){ card.classList.add('show'); }
+  });
+}
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+/* Navbar */
+window.addEventListener("scroll", function () {
+  const navbar = document.querySelector(".navbar");
+  if (window.scrollY > 50) { navbar.classList.add("transparent"); }
+  else { navbar.classList.remove("transparent"); }
+});
+/* Back to Top */
+const backToTop = document.getElementById("backToTop");
+window.addEventListener("scroll", () => {
+  backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+});
+backToTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+/* Modal Logic */
+const modal = document.getElementById("movieModal");
+const modalTitle = document.getElementById("modalTitle");
+const modalDescription = document.getElementById("modalDescription");
+const closeBtn = modal.querySelector(".close");
+const descriptions = {
+  deadpool: "Deadpool joins forces with Wolverine in a chaotic multiverse adventure filled with humor and action.",
+  avatar: "The third installment of James Cameron's Avatar saga continues exploring Pandora and its people.",
+  insideout: "Join Riley's emotions in a brand-new journey as she grows up and faces teenage challenges.",
+  joker2: "Joker returns with a darker, twisted story of madness and chaos in Gotham.",
+  starwars: "A new Jedi Order rises in the Star Wars universe, bringing hope and conflict across the galaxy.",
+  frozen3: "Elsa and Anna embark on another magical adventure to uncover secrets of Arendelle.",
+  avengers: "The Avengers face their biggest battle yet in Secret Wars, uniting heroes across the multiverse.",
+  dune3: "The saga continues as Paul Atreides embraces his destiny in the deserts of Arrakis."
+};
+document.querySelectorAll(".info-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const movie = btn.dataset.movie;
+    modalTitle.textContent = btn.parentElement.querySelector("h3").textContent;
+    modalDescription.textContent = descriptions[movie] || "No description available.";
+    modal.style.display = "flex";
+  });
+});
+closeBtn.addEventListener("click", () => modal.style.display = "none");
+window.addEventListener("click", e => { if (e.target === modal) modal.style.display = "none"; });
+  </script>
+</body>
+</html>

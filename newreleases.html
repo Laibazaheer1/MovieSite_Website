@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Releases</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+/* Hero Section */
+.hero-banner {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    color: white;
+}
+.hero-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+}
+.hero-content {
+    position: relative;
+    max-width: 600px;
+    animation: fadeInUp 1s ease forwards;
+}
+
+/* Section Title */
+.latest-releases-title {
+    margin-left: 60px;
+    color: #fff;
+    animation: slideIn 1s ease forwards;
+}
+
+/* Movie Grid */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+.movie-card {
+    position: relative;
+    background: #222;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: opacity 0.8s ease, transform 0.8s ease; /* add transition */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    opacity: 0; 
+    transform: translateY(40px); /* add this starting offset */
+}
+
+.movie-card.show{
+opacity: 1;
+  transform: translateY(0);}
+.movie-card img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    display: block;
+}
+.movie-card h3 {
+    padding: 10px;
+    font-size: 1rem;
+    color: white;
+}
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+/* Overlay on Hover */
+.movie-card .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    color: white;
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+    transition: opacity 0.4s;
+    z-index: 1; /* keep below heart */
+}
+.movie-card:hover .overlay {
+    opacity: 1;
+}
+.overlay button {
+    background: #0d2b57;
+    color: white;
+    border: none;
+    padding: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* Heart Button (Like) */
+.heart-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  z-index: 2; /* above overlay */
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
+}
+.heart-btn:hover { transform: scale(1.1); }
+.heart-btn.liked { color: #ff334e; transform: scale(1.2); }
+
+/* Footer */
+.short-footer {
+    background: #111;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+/* Search banner */
+.search-banner {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-left: 20px;
+}
+.search-result{
+  width:360px; max-width:90%;
+  background:#0a2342; border-radius:16px;
+  overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.4)
+}
+.search-result img{width:100%; height:500px; object-fit:cover; display:block}
+.search-result .title{
+  padding:12px 16px; color:#fff; font-weight:700; text-align:left;
+  background:rgba(0,0,0,.35); backdrop-filter:saturate(120%) blur(2px)
+}
+.no-results{color:#fff; text-align:center; font-weight:600}
+
+/* Back-to-Top Button */
+#backToTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  font-size: 22px;
+  background: #0d2b57;
+  color: #fff;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: transform 0.3s;
+}
+#backToTop:hover { transform: scale(1.1); }
+/* ================= Responsive Styles ================= */
+
+/* Tablets (≤1024px) */
+@media (max-width: 1024px) {
+  .hero-banner {
+    height: 320px;
+    padding: 30px;
+  }
+  .hero-content {
+    max-width: 80%;
+  }
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+  .movie-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding: 15px;
+  }
+  .movie-card h3 {
+    font-size: 0.95rem;
+  }
+}
+
+/* Small Tablets (≤768px) */
+@media (max-width: 768px) {
+  .navbar .nav-links {
+    display: none; /* hide links for now (can be hamburger later) */
+  }
+  .hero-banner {
+    height: 280px;
+    padding: 20px;
+    text-align: center;
+    justify-content: center;
+  }
+  .hero-content {
+    max-width: 90%;
+  }
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 15px;
+  }
+  .search-container {
+    flex: 1;
+    margin-left: 10px;
+  }
+  #backToTop {
+    bottom: 20px;
+    right: 20px;
+    font-size: 18px;
+    padding: 10px;
+  }
+}
+
+/* Mobile (≤480px) */
+@media (max-width: 480px) {
+  .hero-banner {
+    height: 220px;
+    padding: 15px;
+    text-align: center;
+  }
+  .hero-content h1 {
+    font-size: 1.2rem;
+  }
+  .hero-content p {
+    font-size: 0.8rem;
+  }
+  .hero-content button {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    margin: 5px;
+  }
+  .movie-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 10px;
+  }
+  .movie-card h3 {
+    font-size: 0.9rem;
+  }
+  .search-banner {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+  .search-result img {
+    height: auto;
+    max-height: 300px;
+  }
+  .search-result .title {
+    font-size: 0.9rem;
+  }
+  #backToTop {
+    bottom: 15px;
+    right: 15px;
+    padding: 8px;
+    font-size: 16px;
+  }
+  footer {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="logo">🎬 MovieSite</div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="newreleases.html" class="active">New Releases</a></li>
+        <li><a href="toprated.html">Top Rated</a></li>
+        <li><a href="upcoming.html">Upcoming</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="search-container">
+        <form role="search" id="form">
+            <input type="search" id="query" name="q" placeholder="🔍 Search movies...">
+        </form>
+    </div>
+    <div class="profile-menu">
+        <i class="fa-solid fa-user user-icon"></i>
+        <div class="dropdown-menu">
+            <a href="login.html">Login</a>
+            <a href="signup.html">Signup</a>
+        </div>
+    </div>
+</nav>
+<!-- Hero Section -->
+<header class="hero-banner" style="background-image:url('images/n6.jpeg')">
+    <div class="hero-content">
+        <h1>Top Gun: Maverick</h1>
+        <p>After more than thirty years of service, Maverick is still pushing the limits as a top naval aviator. 
+        Facing the ghosts of his past, he must train a new generation of pilots for a high-stakes mission that demands the ultimate sacrifice.</p>
+        <button class="btn play-btn">▶ Play</button>
+        <button class="btn info-btn">More Info</button>
+    </div>
+</header>
+<!-- New Releases Section -->
+<section class="movie-section">
+    <h2 class="latest-releases-title">Latest Releases</h2>
+    <div class="movie-grid">
+
+        <div class="movie-card">
+            <i class="fa-solid fa-heart heart-btn" aria-label="Like Thor: Love and Thunder" title="Like"></i>
+            <img src="images/n1.jpeg" alt="">
+            <h3>Thor: Love and Thunder</h3>
+            <div class="overlay">
+                <p>Thor embarks on a quest for inner peace.</p>
+                <button>More Info</button>
+                <button class="trailer-btn" data-trailer="https://www.youtube.com/watch?v=Go8nTmfrQd8"><i class="fa-solid fa-film"></i> Play Trailer</button>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <i class="fa-solid fa-heart heart-btn" aria-label="Like Avatar: The Way of Water" title="Like"></i>
+            <img src="images/n2.jpeg" alt="">
+            <h3>Avatar: The Way of Water</h3>
+            <div class="overlay">
+                <p>Return to Pandora with new adventures.</p>
+                <button>More Info</button>
+                <button class="trailer-btn" data-trailer="https://www.youtube.com/watch?v=d9MyW72ELq0"><i class="fa-solid fa-film"></i> Play Trailer</button>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <i class="fa-solid fa-heart heart-btn" aria-label="Like Black Adam" title="Like"></i>
+            <img src="images/n3.jpeg" alt="">
+            <h3>Black Adam</h3>
+            <div class="overlay">
+                <p>The anti-hero rises with unstoppable power.</p>
+                <button>More Info</button>
+                <button class="trailer-btn" data-trailer="https://www.youtube.com/watch?v=X0tOpBuYasI"><i class="fa-solid fa-film"></i> Play Trailer</button>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <i class="fa-solid fa-heart heart-btn" aria-label="Like Doctor Strange" title="Like"></i>
+            <img src="images/n4.jpeg" alt="">
+            <h3>Doctor Strange: Multiverse of Madness</h3>
+            <div class="overlay">
+                <p>Strange faces the chaos of the multiverse.</p>
+                <button>More Info</button>
+                <button class="trailer-btn" data-trailer="https://www.youtube.com/watch?v=aWzlQ2N6qqg"><i class="fa-solid fa-film"></i> Play Trailer</button>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <i class="fa-solid fa-heart heart-btn" aria-label="Like Minions: The Rise of Gru" title="Like"></i>
+            <img src="images/n5.jpeg" alt="">
+            <h3>Minions: The Rise of Gru</h3>
+            <div class="overlay">
+                <p>Gru's childhood adventures unfold.</p>
+                <button>More Info</button>
+                <button class="trailer-btn" data-trailer="https://www.youtube.com/watch?v=6DxjJzmYsXo"><i class="fa-solid fa-film"></i> Play Trailer</button>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <i class="fa-solid fa-heart heart-btn" aria-label="Like Top Gun: Maverick" title="Like"></i>
+            <img src="images/n6.jpeg" alt="">
+            <h3>Top Gun: Maverick</h3>
+            <div class="overlay">
+                <p>Maverick trains the next generation of pilots.</p>
+                <button>More Info</button>
+                <button class="trailer-btn" data-trailer="https://www.youtube.com/watch?v=giXco2jaZ_4"><i class="fa-solid fa-film"></i> Play Trailer</button>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <i class="fa-solid fa-heart heart-btn" aria-label="Like The Batman" title="Like"></i>
+            <img src="images/n7.jpeg" alt="">
+            <h3>The Batman</h3>
+            <div class="overlay">
+                <p>The Dark Knight faces Gotham's shadows.</p>
+                <button>More Info</button>
+                <button class="trailer-btn" data-trailer="https://www.youtube.com/watch?v=mqqft2x_Aa4"><i class="fa-solid fa-film"></i> Play Trailer</button>
+            </div>
+        </div>
+
+        <div class="movie-card">
+            <i class="fa-solid fa-heart heart-btn" aria-label="Like Jurassic World: Dominion" title="Like"></i>
+            <img src="images/n8.jpeg" alt="">
+            <h3>Jurassic World: Dominion</h3>
+            <div class="overlay">
+                <p>Humans and dinosaurs struggle to coexist.</p>
+                <button>More Info</button>
+                <button class="trailer-btn" data-trailer="https://www.youtube.com/watch?v=giXco2jaZ_4"><i class="fa-solid fa-film"></i> Play Trailer</button>
+            </div>
+        </div>
+</div>
+</section>
+<!-- Back to Top -->
+<button id="backToTop"><i class="fa-solid fa-arrow-up"></i></button>
+<!-- Footer -->
+<footer class="short-footer">
+    <p>© 2025 Movie Site | Designed by Laiba</p>
+</footer>
+<script>
+// ❤️ Heart toggle (works for all hearts)
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('heart-btn')) {
+    e.target.classList.toggle('liked');
+    e.stopPropagation(); // prevent hover/overlay flicker on click
+  }
+});
+// 🔝 Back to Top
+const backToTop = document.getElementById("backToTop");
+window.addEventListener("scroll", () => {
+  backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+});
+backToTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+// 🔍 Search Function
+(function newReleasesSearch(){
+  const input = document.getElementById('query');
+  const grid  = document.querySelector('.movie-grid');
+  if(!input || !grid) return;
+
+  const banner = document.createElement('div');
+  banner.className = 'search-banner';
+  grid.parentNode.insertBefore(banner, grid);
+input.addEventListener('input', () => {
+    const term = input.value.trim().toLowerCase();
+    const cards = Array.from(grid.querySelectorAll('.movie-card'));
+    if (term === '') { 
+      banner.style.display='none'; 
+      grid.style.display='grid'; 
+      banner.innerHTML=''; 
+      return; 
+    }
+ const match = cards.find(c => (c.querySelector('h3')?.textContent || '').toLowerCase().includes(term));
+    grid.style.display = 'none';
+    banner.innerHTML = '';
+    banner.style.display = 'flex';
+
+    if (match) {
+      const title = match.querySelector('h3').textContent;
+      const src   = match.querySelector('img').getAttribute('src');
+      banner.innerHTML = `
+        <div class="search-result">
+          <img src="${src}" alt="${title}">
+          <div class="title">${title}</div>
+        </div>`;
+    } else {
+      banner.innerHTML = `<p class="no-results">No movies found!</p>`;
+    }
+  });
+})();
+// ▶ Trailer Button Function
+document.querySelectorAll('.trailer-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const url = btn.getAttribute('data-trailer');
+    window.open(url, '_blank'); 
+  });
+});
+// 🌐 Transparent Navbar Scroll Effect
+window.addEventListener("scroll", function () {
+    const navbar = document.querySelector(".navbar");
+    if (window.scrollY > 50) {
+        navbar.classList.add("transparent");
+    } else {
+        navbar.classList.remove("transparent");
+    }
+});
+// get all movie cards once
+const cards = document.querySelectorAll('.movie-card');
+/* 🔹 Function: Reveal Cards on Scroll Animation */
+function revealOnScroll(){
+  const trigger = window.innerHeight * 0.85;
+  cards.forEach(card => {
+    const top = card.getBoundingClientRect().top;
+    if(top < trigger){ 
+      card.classList.add('show'); 
+    }
+  });
+}
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+</script>
+</body>
+</html>

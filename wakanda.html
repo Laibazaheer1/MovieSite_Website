@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Black Panther: Wakanda Forever</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* Background animation */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+      color: white;
+      animation: bgAnimation 10s ease-in-out infinite alternate;
+    }
+    @keyframes bgAnimation {
+      0% { background: linear-gradient(135deg, #0d0d0d, #1a1a1a); }
+      100% { background: linear-gradient(135deg, #1a1a1a, #2e2e2e); }
+    }
+
+    /* Card reveal */
+    .movie-card {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease;
+    }
+    .movie-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Image hover + float */
+    .movie-card img {
+      max-width: 280px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+      animation: float 4s ease-in-out infinite;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .movie-card img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 35px rgba(0, 153, 255, 0.6);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-12px); }
+    }
+/* Close button */
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.7em;
+      cursor: pointer;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+    .close-btn:hover {
+      color: #ff5c5c;
+      transform: rotate(90deg);
+    }
+/* Hidden details + messages */
+    .details { display: none; opacity: 0; }
+    .details.show { display: block; animation: fadeIn 0.6s ease forwards; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .message { display: none; color: #8ae9ff; }
+    /* 📱 Responsive tweaks */
+    @media (max-width: 768px) {
+      .movie-card img { max-width: 200px; }
+      h1 { font-size: 1.8rem; }
+      h2 { font-size: 1.4rem; }
+      .btn { font-size: 0.9rem; padding: 6px 12px; }
+    }
+    @media (max-width: 576px) {
+      .movie-card img { max-width: 160px; }
+      .btn { font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <div class="row justify-content-center g-5">
+
+      <!-- 🎥 Movie Card -->
+      <div class="col-md-8">
+        <div class="movie-card position-relative text-center p-4 rounded-4 shadow-lg bg-dark bg-opacity-50" id="moviePage">
+          <button class="close-btn" id="closePage">&times;</button>
+
+          <h1 class="mb-4">Black Panther: Wakanda Forever</h1>
+          <img src="images/wakanda.jpg" alt="Black Panther: Wakanda Forever" class="img-fluid mb-3">
+
+          <div class="d-flex flex-wrap justify-content-center gap-2 my-3">
+            <button class="btn btn-primary" id="showBtn"><i class="fas fa-eye"></i> Show Details</button>
+            <button class="btn btn-primary" id="hideBtn" style="display:none;"><i class="fas fa-eye-slash"></i> Hide Details</button>
+            <button class="btn btn-primary" id="trailerBtn"><i class="fas fa-film"></i> Play Trailer</button>
+            <button class="btn btn-primary" id="favBtn"><i class="fas fa-star"></i> Add to Favorites</button>
+            <button class="btn btn-primary" id="quoteBtn"><i class="fas fa-quote-right"></i> Random Quote</button>
+          </div>
+
+          <p class="details text-light" id="movieDetails">
+            In the wake of King T’Challa’s death, Wakanda fights to protect itself from world powers while honoring their late leader. 
+            A gripping sequel filled with action, emotion, and cultural pride.
+          </p>
+
+          <p class="message mt-3" id="favMessage">✅ Added to Favorites!</p>
+          <p class="message mt-3" id="quoteMessage"></p>
+        </div>
+      </div>
+
+      <!-- 🔮 Coming Soon -->
+      <div class="col-md-6">
+        <div class="movie-card text-center p-4 rounded-4 shadow bg-dark bg-opacity-50">
+          <h2>Coming Soon</h2>
+          <p class="text-secondary">More Marvel adventures will be added here...</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const showBtn = document.getElementById('showBtn');
+    const hideBtn = document.getElementById('hideBtn');
+    const details = document.getElementById('movieDetails');
+    const closePage = document.getElementById('closePage');
+    const trailerBtn = document.getElementById('trailerBtn');
+    const favBtn = document.getElementById('favBtn');
+    const favMessage = document.getElementById('favMessage');
+    const quoteBtn = document.getElementById('quoteBtn');
+    const quoteMessage = document.getElementById('quoteMessage');
+
+    const quotes = [
+      "Wakanda Forever!",
+      "The strength of our nation is our unity.",
+      "We must find a way to look after one another.",
+      "A king’s legacy lives through his people.",
+      "In my culture, death is not the end."
+    ];
+
+    // Show details
+    showBtn.addEventListener('click', () => {
+      details.classList.add('show');
+      showBtn.style.display = 'none';
+      hideBtn.style.display = 'inline-block';
+    });
+
+    // Hide details
+    hideBtn.addEventListener('click', () => {
+      details.classList.remove('show');
+      setTimeout(() => { details.style.display = 'none'; }, 400);
+      showBtn.style.display = 'inline-block';
+      hideBtn.style.display = 'none';
+    });
+
+    // Play trailer
+    trailerBtn.addEventListener('click', () => {
+      window.open("https://www.youtube.com/watch?v=_Z3QKkl1WyM", "_blank");
+    });
+
+    // Add to favorites
+    favBtn.addEventListener('click', () => {
+      favMessage.style.display = 'block';
+      favMessage.textContent = "✅ Added to Favorites!";
+      setTimeout(() => { favMessage.style.display = 'none'; }, 2000);
+    });
+
+    // Random quote
+    quoteBtn.addEventListener('click', () => {
+      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      quoteMessage.style.display = 'block';
+      quoteMessage.textContent = "💬 " + randomQuote;
+    });
+
+    // Close button → redirect
+    closePage.addEventListener('click', () => {
+      window.location.href = "index.html";
+    });
+
+    // Scroll reveal
+    const containers = document.querySelectorAll('.movie-card');
+    const revealOnScroll = () => {
+      containers.forEach(container => {
+        const rect = container.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 100) {
+          container.classList.add('visible');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+  </script>
+</body>
+</html>

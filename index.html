@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Site</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+    <!-- ================== Navigation Bar ================== -->
+    <nav class="navbar">
+    <div class="logo">
+        🎬 MovieSite
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="newreleases.html">New Releases</a></li>
+       <li><a href="toprated.html">Top Rated</a></li>
+
+        <li><a href="upcoming.html">Upcoming</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <!-- Search Bar -->
+    <div class="search-container">
+        <form role="search" id="form">
+            <input type="search" id="query" name="q" placeholder="🔍 Search movies...">
+        </form>
+    </div>
+    <!-- Profile Dropdown -->
+    <div class="profile-menu">
+        <i class="fa-solid fa-user user-icon"></i>
+
+        <div class="dropdown-menu">
+            <a href="login.html">Login</a>
+            <a href="sigupup.html">Signup</a>
+        </div>
+    </div>
+</div>
+</nav>
+<!-- ================== Hero Section ================== -->
+<header class="hero-banner" style="background-image:url('images/thor.jpeg')">
+    <div class="hero-content">
+        <h1>Thor</h1>
+        <p>The God of Thunder embarks on an epic journey to save Asgard and the Nine Realms.</p>
+        <button class="btn play-btn" id="playBtn">▶ Play</button>
+        <button class="btn info-btn" id="infoBtn">More Info</button>
+    </div>
+</header>
+ <!-- ================== Modal Section ================== -->
+<div class="modal" id="infoModal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeModal">&times;</span>
+        <img src="images/thor.jpeg" alt="Thor">
+        <h2>Thor</h2>
+        <p>Thor, the mighty Avenger, must protect Asgard from dark forces and prove himself worthy of wielding the hammer Mjolnir.</p>
+    </div>
+</div>
+<!-- ================== Filter Bar ================== -->
+<div class="filter-bar" style="padding: 20px; text-align: center; color: white;">
+  <label for="genreFilter">Genre:</label>
+  <select id="genreFilter">
+    <option value="all">All</option>
+    <option value="action">Action</option>
+    <option value="sci-fi">Sci-Fi</option>
+    <option value="drama">Drama</option>
+    <option value="comedy">Comedy</option>
+    <option value="animation">Animation</option>
+  </select>
+
+  <label for="yearFilter">Year:</label>
+  <select id="yearFilter">
+    <option value="all">All</option>
+    <option value="2025">2025</option>
+    <option value="2022">2022</option>
+    <option value="2019">2019</option>
+    <option value="2017">2017</option>
+  </select>
+
+  <label for="ratingFilter">Rating:</label>
+  <select id="ratingFilter">
+    <option value="all">All</option>
+    <option value="pg">PG</option>
+    <option value="pg-13">PG-13</option>
+    <option value="r">R</option>
+  </select>
+</div>
+<!-- ================== Movies Grid ================== -->
+<div class="row" style="padding-left: 16px;">
+    <div class="column">
+        <div class="card" 
+             data-genre="action" 
+             data-year="2022" 
+             data-rating="R"
+             onclick="location.href='wakanda.html'">
+            <img src="images/wakanda.jpg" class="thumbnail" alt="Black Panther: Wakanda Forever">
+            <h3>Black Panther: Wakanda Forever</h3>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card" 
+             data-genre="action" 
+             data-year="2019" 
+             data-rating="pg-13"
+             onclick="location.href='avenger.html'">
+            <img src="images/avengers.jpeg" class="thumbnail" alt="Avengers: Endgame">
+            <h3>Avengers: Endgame</h3>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card" 
+             data-genre="action" 
+             data-year="2025" 
+             data-rating="pg"
+             onclick="location.href='spider.html'">
+            <img src="images/spiderman.jpeg" class="thumbnail" alt="Spider-Man: No Way Home">
+            <h3>Spider-Man: No Way Home</h3>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card" 
+             data-genre="sci-fi" 
+             data-year="2017" 
+             data-rating="pg-13"
+             onclick="location.href='inception.html'">
+            <img src="images/inception.jpeg" class="thumbnail" alt="Inception">
+            <h3>Inception</h3>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card" 
+             data-genre="action" 
+             data-year="2022" 
+             data-rating="pg-13"
+             onclick="location.href='batman.html'">
+            <img src="images/batman.webp" class="thumbnail" alt="The Batman">
+            <h3>The Batman</h3>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card" 
+             data-genre="drama" 
+             data-year="2019" 
+             data-rating="R"
+             onclick="location.href='joker.html'">
+            <img src="images/joker.jpeg" class="thumbnail" alt="Joker">
+            <h3>Joker</h3>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card" 
+             data-genre="sci-fi" 
+             data-year="2017" 
+             data-rating="pg-13"
+             onclick="location.href='interstellar.html'">
+            <img src="images/interstellar.jpeg" class="thumbnail" alt="Interstellar">
+            <h3>Interstellar</h3>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card" 
+             data-genre="animation" 
+             data-year="2025" 
+             data-rating="pg"
+             onclick="location.href='frozen.html'">
+            <img src="images/frozen.jpeg" class="thumbnail" alt="Frozen">
+            <h3>Frozen</h3>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card" 
+             data-genre="animation" 
+             data-year="2019" 
+             data-rating="pg"
+             onclick="location.href='minion.html'">
+            <img src="images/minion.jpeg" class="thumbnail" alt="Minions">
+            <h3>Minions</h3>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card" 
+             data-genre="action" 
+             data-year="2017" 
+             data-rating="pg-13"
+             onclick="location.href='ironman.html'">
+            <img src="images/ironman.jpeg" class="thumbnail" alt="Iron Man">
+            <h3>Iron Man</h3>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card" 
+             data-genre="action" 
+             data-year="2022" 
+             data-rating="pg"
+             onclick="location.href='thor.html'">
+            <img src="images/thor.jpeg" class="thumbnail" alt="Thor: Love and Thunder">
+            <h3>Thor: Love and Thunder</h3>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="card" 
+             data-genre="action" 
+             data-year="2019" 
+             data-rating="pg-13"
+             onclick="location.href='captionmarvel.html'">
+            <img src="images/captain marvel.jpeg" class="thumbnail" alt="Captain Marvel">
+            <h3>Captain Marvel</h3>
+        </div>
+    </div>
+</div>
+<!-- ================== Footer Section ================== -->
+<footer>
+    <div class="footer-container">
+        <!-- About Section -->
+        <div class="footer-section">
+            <h4>About Movie Site</h4>
+            <p>Your go-to platform for exploring trending movies, blockbusters, and timeless classics. Search, discover, and enjoy!</p>
+        </div>
+         <!-- Quick Links -->
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Top Rated</a></li>
+                <li><a href="#">New Releases</a></li>
+                <li><a href="#">Upcoming</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+        <!-- Social Media -->
+        <div class="footer-section">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+                <a href="#" title="Facebook">📘</a>
+                <a href="#" title="Instagram">📸</a>
+                <a href="#" title="Twitter">🐦</a>
+                <a href="#" title="YouTube">▶️</a>
+            </div>
+        </div>
+    </div>
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+        <p>© 2025 Movie Site | Designed by Laiba</p>
+    </div>
+</footer>
+    <script src="script.js"></script>
+</body>
+</html>
