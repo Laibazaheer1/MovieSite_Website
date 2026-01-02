@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-/* Hero Section */
+
 .hero-banner {
     position: relative;
     background-size: cover;
@@ -31,7 +31,6 @@
     animation: fadeInUp 1s ease forwards;
 }
 
-/* Section Title */
 .latest-releases-title {
     margin-left: 60px;
     color: #fff;
@@ -53,10 +52,10 @@
     border-radius: 10px;
     overflow: hidden;
     text-align: center;
-    transition: opacity 0.8s ease, transform 0.8s ease; /* add transition */
+    transition: opacity 0.8s ease, transform 0.8s ease; 
     box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     opacity: 0; 
-    transform: translateY(40px); /* add this starting offset */
+    transform: translateY(40px); 
 }
 
 .movie-card.show{
@@ -77,7 +76,7 @@ opacity: 1;
     transform: scale(1.05);
 }
 
-/* Overlay on Hover */
+
 .movie-card .overlay {
     position: absolute;
     inset: 0;
@@ -89,7 +88,7 @@ opacity: 1;
     justify-content: center;
     padding: 15px;
     transition: opacity 0.4s;
-    z-index: 1; /* keep below heart */
+    z-index: 1; 
 }
 .movie-card:hover .overlay {
     opacity: 1;
@@ -103,7 +102,6 @@ opacity: 1;
     cursor: pointer;
 }
 
-/* Heart Button (Like) */
 .heart-btn {
   position: absolute;
   top: 10px;
@@ -112,13 +110,12 @@ opacity: 1;
   font-size: 1.5rem;
   cursor: pointer;
   transition: transform 0.2s ease, color 0.2s ease;
-  z-index: 2; /* above overlay */
+  z-index: 2; 
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6));
 }
 .heart-btn:hover { transform: scale(1.1); }
 .heart-btn.liked { color: #ff334e; transform: scale(1.2); }
 
-/* Footer */
 .short-footer {
     background: #111;
     color: white;
@@ -127,7 +124,6 @@ opacity: 1;
     margin-top: 20px;
 }
 
-/* Search banner */
 .search-banner {
   display: flex;
   justify-content: flex-start;
@@ -146,7 +142,6 @@ opacity: 1;
 }
 .no-results{color:#fff; text-align:center; font-weight:600}
 
-/* Back-to-Top Button */
 #backToTop {
   position: fixed;
   bottom: 30px;
@@ -193,7 +188,7 @@ opacity: 1;
 /* Small Tablets (≤768px) */
 @media (max-width: 768px) {
   .navbar .nav-links {
-    display: none; /* hide links for now (can be hamburger later) */
+    display: none; 
   }
   .hero-banner {
     height: 280px;
@@ -415,14 +410,14 @@ opacity: 1;
     <p>© 2025 Movie Site | Designed by Laiba</p>
 </footer>
 <script>
-// ❤️ Heart toggle (works for all hearts)
+//  Heart toggle (works for all hearts)
 document.addEventListener('click', (e) => {
   if (e.target.classList.contains('heart-btn')) {
     e.target.classList.toggle('liked');
     e.stopPropagation(); // prevent hover/overlay flicker on click
   }
 });
-// 🔝 Back to Top
+//  Back to Top
 const backToTop = document.getElementById("backToTop");
 window.addEventListener("scroll", () => {
   backToTop.style.display = window.scrollY > 300 ? "block" : "none";
@@ -430,7 +425,7 @@ window.addEventListener("scroll", () => {
 backToTop.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
-// 🔍 Search Function
+//  Search Function
 (function newReleasesSearch(){
   const input = document.getElementById('query');
   const grid  = document.querySelector('.movie-grid');
@@ -466,14 +461,14 @@ input.addEventListener('input', () => {
     }
   });
 })();
-// ▶ Trailer Button Function
+// Trailer Button Function
 document.querySelectorAll('.trailer-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const url = btn.getAttribute('data-trailer');
     window.open(url, '_blank'); 
   });
 });
-// 🌐 Transparent Navbar Scroll Effect
+//  Transparent Navbar Scroll Effect
 window.addEventListener("scroll", function () {
     const navbar = document.querySelector(".navbar");
     if (window.scrollY > 50) {
@@ -484,7 +479,7 @@ window.addEventListener("scroll", function () {
 });
 // get all movie cards once
 const cards = document.querySelectorAll('.movie-card');
-/* 🔹 Function: Reveal Cards on Scroll Animation */
+/*  Function: Reveal Cards on Scroll Animation */
 function revealOnScroll(){
   const trigger = window.innerHeight * 0.85;
   cards.forEach(card => {
