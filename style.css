@@ -449,7 +449,7 @@ footer {
 
 /* ================== Responsive Styles ================== */
 
-/* 📌 Tablets (max-width: 1024px) */
+/*  Tablets (max-width: 1024px) */
 @media screen and (max-width: 1024px) {
     .column {
         width: 33.33%; /* 3 movies per row */
@@ -463,13 +463,13 @@ footer {
     }
 }
 
-/* 📌 Small Tablets (max-width: 768px) */
+/*  Small Tablets (max-width: 768px) */
 @media screen and (max-width: 768px) {
     .column {
-        width: 50%; /* 2 movies per row */
+        width: 50%; 
     }
 
-    /* Navbar turns into stacked layout */
+    
     .navbar {
         flex-direction: column;
         align-items: flex-start;
@@ -488,7 +488,6 @@ footer {
         width: 100%;
     }
 
-    /* Hero section */
     .hero-banner {
         height: 300px;
         padding: 20px;
@@ -513,13 +512,12 @@ footer {
     }
 }
 
-/* 📌 Mobile (max-width: 480px) */
+/*  Mobile (max-width: 480px) */
 @media screen and (max-width: 480px) {
     .column {
-        width: 100%; /* 1 movie per row */
+        width: 100%; 
     }
 
-    /* Navbar mobile */
     .navbar {
         padding: 10px;
     }
@@ -534,7 +532,7 @@ footer {
         padding: 5px 8px;
     }
 
-    /* Hero */
+  
     .hero-banner {
         height: 250px;
         padding: 15px;
