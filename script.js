@@ -1,19 +1,16 @@
-// =============================
-// 🔍 SEARCH FUNCTION
-// =============================
+//  SEARCH FUNCTION
 document.getElementById("query").addEventListener("input", function () {
-    let filter = this.value.toLowerCase(); // Get search input
+    let filter = this.value.toLowerCase(); 
     let cards = document.querySelectorAll(".card");
     let found = false;
 
-    // Loop through movie cards
     cards.forEach(card => {
         let title = card.querySelector("h3").textContent.toLowerCase();
         if (title.includes(filter)) {
-            card.parentElement.style.display = ""; // Show if matches search
+            card.parentElement.style.display = "";
             found = true;
         } else {
-            card.parentElement.style.display = "none"; // Hide if not matched
+            card.parentElement.style.display = "none"; 
         }
     });
 // If no movie matches, show message
@@ -29,23 +26,19 @@ document.getElementById("query").addEventListener("input", function () {
         }
     } else {
         let msg = document.querySelector(".no-results");
-        if (msg) msg.remove(); // Remove message if results found
+        if (msg) msg.remove(); 
     }
 });
-// =============================
-// 🌫️ NAVBAR TRANSPARENCY ON SCROLL
-// =============================
+// NAVBAR TRANSPARENCY ON SCROLL
 window.addEventListener("scroll", function () {
     const navbar = document.querySelector(".navbar");
     if (window.scrollY > 50) {
-        navbar.classList.add("transparent"); // Add transparent effect
+        navbar.classList.add("transparent"); 
     } else {
-        navbar.classList.remove("transparent"); // Reset on top
+        navbar.classList.remove("transparent"); 
     }
 });
-// =============================
-// 🎬 FILTER FUNCTION (with dropdowns)
-// =============================
+//  FILTER FUNCTION (with dropdowns)
 document.addEventListener('DOMContentLoaded', function () {
     const selects = document.querySelectorAll('.filter-bar select');
     const cards   = Array.from(document.querySelectorAll('.row .card'));
@@ -55,7 +48,7 @@ function filterMovies() {
         const year   = (document.getElementById('yearFilter')?.value || 'all');
         const rating = (document.getElementById('ratingFilter')?.value || 'all').toLowerCase();
         let anyVisible = false;
-// ✅ If all dropdowns are set to "all", show everything
+// If all dropdowns are set to "all", show everything
         if (genre === 'all' && year === 'all' && rating === 'all') {
             cards.forEach(card => {
                 const wrapper = card.closest('.column') || card;
@@ -97,17 +90,15 @@ function filterMovies() {
     }
 // Run filter whenever dropdowns change
     selects.forEach(s => s.addEventListener('change', filterMovies));
-    filterMovies(); // Run once on page load
+    filterMovies(); 
 });
-// =============================
-// ✍️ TYPING EFFECT FOR HERO SECTION
-// =============================
+//  TYPING EFFECT FOR HERO SECTION
 document.addEventListener("DOMContentLoaded", function () {
     const heroTitle = document.querySelector(".hero-content h1");
     const heroText = document.querySelector(".hero-content p");
-    const titleText = heroTitle.textContent;     // Save original text
-    const paragraphText = heroText.textContent;  // Save original paragraph
-     heroTitle.textContent = ""; // Clear text initially
+    const titleText = heroTitle.textContent;     
+    const paragraphText = heroText.textContent;  
+     heroTitle.textContent = ""; 
     heroText.textContent = "";
     let i = 0, j = 0;
     // Type title letter by letter
@@ -117,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
             i++;
             setTimeout(typeTitle, 100);
         } else {
-            setTimeout(typeParagraph, 500); // Start typing paragraph after delay
+            setTimeout(typeParagraph, 500); 
         }
     }
 // Type paragraph letter by letter
@@ -128,18 +119,16 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(typeParagraph, 50);
         }
     }
-typeTitle(); // Start typing effect
+typeTitle(); 
 });
-// =============================
-// 🎞️ REVEAL MOVIE CARDS ON SCROLL
-// =============================
+// REVEAL MOVIE CARDS ON SCROLL
 const cards = document.querySelectorAll(".card");
 function revealOnScroll() {
-    const trigger = window.innerHeight * 0.85; // Reveal threshold
+    const trigger = window.innerHeight * 0.85;
     cards.forEach(card => {
         const top = card.getBoundingClientRect().top;
         if (top < trigger) {
-            card.classList.add("show"); // Add animation class
+            card.classList.add("show");
         }
     });
 }
