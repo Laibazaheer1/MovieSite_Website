@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
    
-    /* ==== BASE ==== */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -17,7 +16,6 @@
     }
     * { box-sizing: border-box; }
 
-    /* ==== HEADER ==== */
     header {
       text-align: center;
       padding: 50px 20px;
@@ -26,9 +24,8 @@
     header h1 { margin: 0; font-size: 36px; }
     header p { margin-top: 8px; font-size: 16px; color: #ccc; }
 
-    /* ==== CONTACT WRAPPER ==== */
     main {
-      padding: 60px 20px;  /* increased padding */
+      padding: 60px 20px;  
     }
     .contact-wrapper {
       display: flex;
@@ -37,11 +34,10 @@
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-      min-height: 520px;  /* ensure enough height for button */
+      min-height: 520px;  
       background: #fff;
     }
 
-    /* Left panel */
     .contact-left {
       flex: 1;
       background: #446eac;
@@ -69,7 +65,7 @@
       padding: 40px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between; /* keep button visible */
+      justify-content: space-between; 
     }
     .contact-right h2 {
       font-size: 24px;
@@ -102,14 +98,13 @@
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      margin-top: 10px; /* extra spacing */
+      margin-top: 10px; 
       transition: background 0.3s;
     }
     .contact-right button:hover {
       background: #0097a7;
     }
 
-    /* ==== FOOTER ==== */
     footer {
       text-align: center;
       padding: 20px;
@@ -119,8 +114,6 @@
       margin-top: 50px;
     }
 
-    
-    /* Back-to-Top */
 #backToTop {
   position: fixed;
   bottom: 30px;
@@ -137,7 +130,7 @@
   transition: transform 0.3s;
 }
 #backToTop:hover { transform: scale(1.1); }
-/* Chat Icon */
+
     #chatIcon {
       position: fixed;
       bottom: 90px;
@@ -154,7 +147,6 @@
     }
     #chatIcon:hover { transform: scale(1.1); }
 
-    /* Popup */
     .popup {
       position: fixed;
       top: 20px;
@@ -296,7 +288,7 @@
  </style>
 </head>
 <body>
-  <!-- Navbar -->
+ 
    <!-- Navbar -->
   <nav class="navbar">
     <div class="logo">🎬 MovieSite</div>
@@ -342,7 +334,7 @@
           <p><strong>Address:</strong> 123 Movie Lane, Hollywood, CA</p>
         </div>
 
-        <!-- 📍 Embedded Map (no CSS changes; inline-only) -->
+        <!--  Embedded Map (no CSS changes; inline-only) -->
         <div style="margin-top:18px;border-radius:10px;overflow:hidden;">
           <iframe
             title="MovieSite Location"
@@ -359,7 +351,7 @@
       <!-- Right Section -->
       <div class="contact-right">
         <h2>Contact</h2>
-        <!-- ✅ Added ID so popup submit works -->
+        <!--  Added ID so popup submit works -->
         <form id="contactForm">
           <input type="text" placeholder="Name *" required>
           <input type="email" placeholder="Email *" required>
@@ -380,7 +372,7 @@
   <!-- Chat Icon -->
   <div id="chatIcon"><i class="fa-solid fa-comment-dots"></i></div>
 
-  <!-- 💬 Chat Box (inline styles only; no CSS changes) -->
+  <!--  Chat Box (inline styles only; no CSS changes) -->
   <div id="chatBox" aria-hidden="true"
        style="position:fixed;bottom:150px;right:30px;width:320px;max-width:90vw;background:#ffffff;color:#111;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.45);display:none;z-index:1001;overflow:hidden;">
     <div style="background:#446eac;color:#fff;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;">
@@ -405,7 +397,7 @@
     <p>© 2025 Movie Site | Designed by Laiba</p>
   </footer>
 <script>
-    /* 🌐 Transparent Navbar Scroll Effect */
+    /* Transparent Navbar Scroll Effect */
     window.addEventListener("scroll", function () {
       const navbar = document.querySelector(".navbar");
       if (!navbar) return;
@@ -426,11 +418,11 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     })();
-/* ✨ Scroll Reveal (no CSS changes; use inline styles via JS) */
+/* Scroll Reveal (no CSS changes; use inline styles via JS) */
     (function(){
       const wrapper = document.querySelector(".contact-wrapper");
       if (!wrapper) return;
-// Initial hidden state (set via JS to avoid editing CSS)
+
       wrapper.style.opacity = "0";
       wrapper.style.transform = "translateY(20px)";
       wrapper.style.transition = "opacity 600ms ease, transform 600ms ease";
@@ -446,10 +438,10 @@
       }
       window.addEventListener("scroll", revealOnScroll, { passive: true });
       window.addEventListener("load", revealOnScroll);
-      // In case already in view on fast loads
+      
       setTimeout(revealOnScroll, 50);
     })();
-/* ✅ Success Popup on Form Submit (fixed missing ID) */
+/*  Success Popup on Form Submit (fixed missing ID) */
     (function(){
       const contactForm = document.getElementById("contactForm");
       const successPopup = document.getElementById("successPopup");
@@ -457,7 +449,7 @@
 contactForm.addEventListener("submit", (e) => {
         e.preventDefault();
         successPopup.style.display = "block";
-        // small slide-in effect without touching CSS
+       
         successPopup.style.transform = "translateY(0)";
         successPopup.style.transition = "opacity 300ms ease";
         successPopup.style.opacity = "1";
@@ -468,7 +460,7 @@ setTimeout(() => {
 contactForm.reset();
       });
     })();
-/* 💬 Chat Icon + Simple Chat Box (toggle open/close) */
+/*  Chat Icon + Simple Chat Box (toggle open/close) */
     (function(){
   const chatIcon = document.getElementById("chatIcon");
   const chatBox  = document.getElementById("chatBox");
@@ -491,7 +483,7 @@ chatIcon.addEventListener("click", () => {
     if (isOpen) { closeChat(); } else { openChat(); }
   });
   chatClose && chatClose.addEventListener("click", closeChat);
-// Simple local echo + keyword-based replies
+
   chatForm && chatForm.addEventListener("submit", function(e){
     e.preventDefault();
     if (!chatInput || !chatMessages) return;
