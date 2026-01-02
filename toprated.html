@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-    /* Hero Banner */
+  
     .hero-banner {
   background-attachment: fixed;
  position: relative;
@@ -40,14 +40,13 @@
     gap: 20px;
 }
 
-/* Flip card */
 .movie-card { perspective: 1000px; }
 .movie-card {
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.6s ease;
 }
-/* When scrolled into view */
+
 .movie-card.show {
   opacity: 1;
   transform: translateY(0);
@@ -143,7 +142,6 @@
 }
 .no-results{color:#fff; text-align:center; font-weight:600}
 
-/* Trailer link button */
 .trailer-link {
     display: inline-block;
     margin-top: 10px;
@@ -217,7 +215,7 @@
 /* Small Tablets (≤768px) */
 @media (max-width: 768px) {
   .movie-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 movies per row */
+    grid-template-columns: repeat(2, 1fr); 
   }
   .hero-banner {
     height: 280px;
@@ -234,7 +232,7 @@
     font-size: 0.95rem;
   }
   .nav-links {
-    display: none; /* hide desktop nav */
+    display: none; 
   }
   .search-container {
     flex: 1;
@@ -249,7 +247,7 @@
 /* Mobile (≤480px) */
 @media (max-width: 480px) {
   .movie-grid {
-    grid-template-columns: 1fr; /* single column */
+    grid-template-columns: 1fr; 
   }
   .hero-banner {
     height: 220px;
@@ -509,10 +507,10 @@
     <p>© 2025 Movie Site | Designed by Laiba</p>
 </footer>
 <script>
-   /* 🔍 Search Function for Top Rated Page */
+   /*  Search Function for Top Rated Page */
 (function topRatedSearch(){
   const input = document.getElementById('query');
-  const grid  = document.querySelector('.movie-grid'); // NOTE: .movie-grid (not .row)
+  const grid  = document.querySelector('.movie-grid'); 
   if(!input || !grid) return;
 
   // create the banner right before the grid
@@ -522,7 +520,7 @@
 
   input.addEventListener('input', () => {
     const term = input.value.trim().toLowerCase();
-    const cards = Array.from(grid.querySelectorAll('.movie-card')); // NOTE: .movie-card (not .card)
+    const cards = Array.from(grid.querySelectorAll('.movie-card')); 
     if (term === '') { banner.style.display='none'; grid.style.display='grid'; banner.innerHTML=''; return; }
 
     const match = cards.find(c => (c.querySelector('h3')?.textContent || '').toLowerCase().includes(term));
@@ -543,7 +541,7 @@
     }
   });
   })();
-/* 🌐 Transparent Navbar Scroll Effect */
+/*  Transparent Navbar Scroll Effect */
 window.addEventListener("scroll", function () {
     const navbar = document.querySelector(".navbar");
     if (window.scrollY > 50) {
@@ -552,7 +550,7 @@ window.addEventListener("scroll", function () {
         navbar.classList.remove("transparent");
     }
 });
-/* ✨ Animate movies on scroll */
+/*  Animate movies on scroll */
 const cards=document.querySelectorAll('.movie-card');
 function revealOnScroll(){
   const trigger=window.innerHeight*0.85;
@@ -586,12 +584,6 @@ document.querySelectorAll(".stars").forEach(starContainer => {
     });
   });
 });
-
-
-
-
-
-    
 </script>
 
 </body>
