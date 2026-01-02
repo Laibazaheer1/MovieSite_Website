@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-    /* Background animation */
+   
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
@@ -24,7 +24,6 @@
       100% { background: linear-gradient(135deg, #1a1a1a, #2e2e2e); }
     }
 
-    /* Card reveal */
     .movie-card {
       opacity: 0;
       transform: translateY(50px);
@@ -35,7 +34,6 @@
       transform: translateY(0);
     }
 
-    /* Image hover + float */
     .movie-card img {
       max-width: 280px;
       border-radius: 12px;
@@ -52,7 +50,6 @@
       50% { transform: translateY(-12px); }
     }
 
-    /* Close button */
     .close-btn {
       position: absolute;
       top: 15px;
@@ -69,7 +66,6 @@
       transform: rotate(90deg);
     }
 
-    /* Hidden details + messages */
     .details { display: none; opacity: 0; }
     .details.show { display: block; animation: fadeIn 0.6s ease forwards; }
     @keyframes fadeIn {
@@ -112,7 +108,7 @@
     top: 10px;
     right: 10px;
   }
-  /* Stack action buttons vertically */
+  
   .d-flex.flex-wrap {
     flex-direction: column;
     align-items: center;
@@ -121,7 +117,7 @@
     width: 100%;
     max-width: 300px;
   }
-  /* Coming Soon card full width */
+ 
   .col-md-6 {
     flex: 0 0 100%;
     max-width: 100%;
@@ -160,7 +156,7 @@
   <div class="container py-5">
     <div class="row justify-content-center g-5">
 
-      <!-- 🎥 Movie Card -->
+      <!--  Movie Card -->
       <div class="col-md-8">
         <div class="movie-card position-relative text-center p-4 rounded-4 shadow-lg bg-dark bg-opacity-50" id="moviePage">
           <button class="close-btn" id="closePage">&times;</button>
@@ -182,12 +178,12 @@
             A mind-bending journey through layers of reality.
           </p>
 
-          <p class="message mt-3" id="favMessage">✅ Added to Favorites!</p>
+          <p class="message mt-3" id="favMessage">Added to Favorites!</p>
           <p class="message mt-3" id="quoteMessage"></p>
         </div>
       </div>
 
-      <!-- 🔮 Coming Soon -->
+      <!--  Coming Soon -->
       <div class="col-md-6">
         <div class="movie-card text-center p-4 rounded-4 shadow bg-dark bg-opacity-50">
           <h2>Coming Soon</h2>
@@ -243,7 +239,7 @@
     // Add to favorites
     favBtn.addEventListener('click', () => {
       favMessage.style.display = 'block';
-      favMessage.textContent = "✅ Added to Favorites!";
+      favMessage.textContent = " Added to Favorites!";
       setTimeout(() => { favMessage.style.display = 'none'; }, 2000);
     });
 
